@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:13
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: root         # PostgreSQL 사용자 이름
+      POSTGRES_PASSWORD: 1234 # PostgreSQL 비밀번호
+      POSTGRES_DB: social_db      # PostgreSQL 데이터베이스 이름
+    ports:
+      - "5432:5432"               # 호스트와 컨테이너 포트 매핑
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # 데이터 지속성을 위한 볼륨
+
+  mongodb:
+    image: mongo:5
+    container_name: mongo-db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root       # MongoDB 사용자 이름
+      MONGO_INITDB_ROOT_PASSWORD: 1234   # MongoDB 비밀번호
+    ports:
+      - "27017:27017"                        # 호스트와 컨테이너 포트 매핑
+    volumes:
+      - mongo_data:/data/db                  # 데이터 지속성을 위한 볼륨
+
+volumes:
+  postgres_data:
+  mongo_data:
