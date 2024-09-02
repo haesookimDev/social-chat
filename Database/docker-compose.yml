@@ -10,13 +10,18 @@ services:
       - "5432:5432"               # 호스트와 컨테이너 포트 매핑
     volumes:
       - postgres_data:/var/lib/postgresql/data # 데이터 지속성을 위한 볼륨
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
   mongodb:
-    image: mongo:5
+    image: mongo:6
     container_name: mongo-db
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root       # MongoDB 사용자 이름
+      MONGO_INITDB_DATABASE: chat_db
+      MONGO_INITDB_ROOT_USERNAME: root   # MongoDB 사용자 이름
       MONGO_INITDB_ROOT_PASSWORD: 1234   # MongoDB 비밀번호
+      MONGO_USER: mong
+      MONGO_PASSWORD: 1234
+      MONGO_DB: chat_db
     ports:
       - "27017:27017"                        # 호스트와 컨테이너 포트 매핑
     volumes:
